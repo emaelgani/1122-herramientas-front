@@ -1,0 +1,40 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #drawer mode="push" [ngStyle]="{width: '250px'}">
+      <mat-toolbar color="warn">
+        <span>Menú</span>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+      </mat-toolbar>
+
+    <mat-nav-list>
+      <mat-list-item
+      *ngFor="let item of sidebarItems"
+      [routerLink]="item.url"
+      (click)="drawer.toggle()">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        {{ item.label }}
+      </mat-list-item>
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>1122 Herramientas</span>
+    </mat-toolbar>
+
+    <!-- Add Content Here -->
+    <router-outlet />
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

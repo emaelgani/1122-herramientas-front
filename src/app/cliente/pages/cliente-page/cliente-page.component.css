@@ -1,0 +1,22 @@
+/* Structure */
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.grid-container {
+  margin: 20px;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos en el centro */
+}
+
+.filter-container button {
+  margin-left: 10px; /* Margen izquierdo entre el campo de filtro y el botón (opcional) */
+  margin-bottom: 15px;
+}
