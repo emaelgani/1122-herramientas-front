@@ -13,11 +13,11 @@ export class SideNavComponent {
 
     public sidebarItems = [
       { label: 'Dashboard', icon: 'bar_chart', url:'/dashboard'},
-      { label: 'Clientes', icon: 'groups', url:'/clientes'},
-      { label: 'Productos', icon: 'construction', url:'/clientes'},
-      { label: 'Ventas', icon: 'sell', url:'/clientes'},
       { label: 'Proveedores', icon: 'supervisor_account', url:'/clientes'},
+      { label: 'Productos', icon: 'construction', url:'/clientes'},
+      { label: 'Clientes', icon: 'groups', url:'/clientes'},
+      { label: 'Ventas', icon: 'sell', url:'/clientes'},
       { label: 'Pagos', icon: 'payments', url:'/clientes'},
-      { label: 'Notas', icon: 'description', url:'/clientes'},
+      { label: 'Pedidos', icon: 'description', url:'/clientes'},
     ];
 }

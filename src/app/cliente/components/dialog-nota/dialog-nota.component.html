@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>
+  Descripción del pedido solicitado por el cliente:  {{ nombreCliente() | titlecase }}
+</h1>
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="content">
+
+    <div class="row">
+
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="picker" placeholder="Seleccionar fecha de pedido" formControlName="fecha">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="row">
+
+      <mat-form-field class="full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput placeholder="Pinza para..." formControlName="observacion"></textarea>
+      </mat-form-field>
+
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions class="action">
+    <button mat-raised-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </div>
+</form>
