@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClienteService } from '../../services/cliente.service';
-import { Cliente } from '../../interfaces/cliente.interface';
+import { Cliente } from '../../../shared/interfaces/cliente.interface';
 
 
 @Component({
@@ -17,10 +17,6 @@ export class DialogClienteComponent implements OnInit {
   private fb = inject(FormBuilder);
   public dialogRef = inject(MatDialogRef<DialogClienteComponent>);
   private _snackBar = inject(MatSnackBar);
-
-  selectedTruck?: string;
-  selectedYear?: number;
-  years: number[] = [];
 
   public myForm: FormGroup = this.fb.group({
     nombre: ['', []],

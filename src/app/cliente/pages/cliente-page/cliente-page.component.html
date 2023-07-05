@@ -40,19 +40,19 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef > Action </th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button color="warn" (click)="openDialogCliente()">
+          <button mat-icon-button color="warn" matTooltip="Agregar una venta" (click)="openDialogVenta(row)">
             <mat-icon>sell</mat-icon>
           </button>
-          <button mat-icon-button (click)="openDialogCliente()">
+          <button mat-icon-button matTooltip="Agregar un pago" (click)="openDialogCliente()">
             <mat-icon>payments</mat-icon>
           </button>
-          <button mat-icon-button color="accent" (click)="openDialogNota(row)">
+          <button mat-icon-button color="accent" matTooltip="Agregar nota de pedido" (click)="openDialogNota(row)">
             <mat-icon>description</mat-icon>
           </button>
-          <button mat-icon-button color="primary" (click)="openEditDialogCliente(row)">
+          <button mat-icon-button color="primary" matTooltip="Editar cliente" (click)="openEditDialogCliente(row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="deleteCliente(row.idCliente)">
+          <button mat-icon-button color="warn" matTooltip="Borrar cliente" (click)="deleteCliente(row.idCliente)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

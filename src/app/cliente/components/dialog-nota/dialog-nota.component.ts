@@ -2,6 +2,7 @@ import { Component, Inject, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClienteService } from '../../services/cliente.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class DialogNotaComponent implements OnInit {
 
-  // private clienteService = inject(ClienteService);
+  private clienteService = inject(ClienteService);
   private fb = inject(FormBuilder);
   public dialogRef = inject(MatDialogRef<DialogNotaComponent>);
   private _snackBar = inject(MatSnackBar);
@@ -19,9 +20,8 @@ export class DialogNotaComponent implements OnInit {
   public nombreCliente = signal('');
 
   public myForm: FormGroup = this.fb.group({
-    idCliente: ['', []],
     fecha: ['', []],
-    observacion: ['', []],
+    descripcion: ['', []],
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
@@ -44,26 +44,31 @@ export class DialogNotaComponent implements OnInit {
 
 
       if (this.data) {
-        console.log(this.data);
+
+        const fecha = new Date(this.myForm.value.fecha);
+        const fechaTransformada = fecha.toISOString().split('T')[0];
 
         const transformedObj: any = {
           //* Se agrega una nueva nota
           idCliente: this.data.idCliente,
-          observacion: this.myForm.value.nombre,
-          fecha: this.myForm.value.telefono,
+          descripcion: this.myForm.value.descripcion,
+          fecha: fechaTransformada,
+          estado: false
         };
 
-        // this.clienteService.createCliente(transformedObj).subscribe({
-        //   next: (val: any) => {
-        //     this._snackBar.open('Nota agregada correctamente', 'OK');
-        //     this.dialogRef.close(true);
-        //   },
-        //   error: (err: any) => {
-        //     console.error(err);
-        //   }
-        // })
-      } else {
 
+
+        this.clienteService.createNota(transformedObj).subscribe({
+          next: (val: any) => {
+            this._snackBar.open('Nota agregada correctamente', 'OK');
+            this.dialogRef.close(true);
+          },
+          error: (err: any) => {
+            console.error(err);
+          }
+        })
+      } else {
+        this._snackBar.open('Error al crear nota', 'OK');
       }
     }
 

@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>
+  Proveedor
+</h1>
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="content">
+
+    <div class="row">
+
+      <mat-form-field >
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre">
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono">
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+
+      <mat-form-field class="full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput placeholder="Trabaja con herramietnas de tipo..." formControlName="descripcion"></textarea>
+      </mat-form-field>
+
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions class="action">
+    <button mat-raised-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">Actualizar</button>
+  </div>
+</form>

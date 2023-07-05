@@ -1,0 +1,50 @@
+.example-input-wrapper {
+  margin-bottom: 16px;
+}
+
+label {
+  margin-right: 4px;
+}
+
+
+.content{
+  padding-top: 10px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+
+  mat-form-field{
+    width: 100%;
+  }
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.mb-9{
+  margin-bottom: 9px;
+}
+
+span {
+  color: #FF7152;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buton-title {
+  font-size: inherit;
+}
+
+

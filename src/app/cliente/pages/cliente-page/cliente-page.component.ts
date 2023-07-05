@@ -3,12 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ClienteService } from '../../services/cliente.service';
-import { Cliente } from '../../interfaces/cliente.interface';
+import { Cliente } from '../../../shared/interfaces/cliente.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogClienteComponent } from '../../components/dialog-cliente/dialog-cliente.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogNotaComponent } from '../../components/dialog-nota/dialog-nota.component';
+import { DialogVentaComponent } from '../../components/dialog-venta/dialog-venta.component';
 
 
 @Component({
@@ -50,6 +51,19 @@ export class ClientePageComponent {
 
   openDialogCliente(){
     const dialogRef = this._dialog.open(DialogClienteComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getClientees();
+        }
+      }
+    });
+  }
+
+  openDialogVenta(data: any){
+    const dialogRef = this._dialog.open(DialogVentaComponent, {
+      data,
+    });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {

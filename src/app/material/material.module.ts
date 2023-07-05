@@ -22,7 +22,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   exports: [
@@ -48,6 +52,11 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatSortModule,
     MatPaginatorModule,
     MatExpansionModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatTooltipModule,
+    MatStepperModule,
+    MatDividerModule,
 ]
 })
 export class MaterialModule { }

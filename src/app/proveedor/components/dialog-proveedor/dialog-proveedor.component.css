@@ -1,0 +1,36 @@
+.content{
+  padding-top: 10px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+
+  mat-form-field{
+    width: 100%;
+  }
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.example-h2 {
+  margin: 10px;
+}
+
+.section-radio-button {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.margin-radio-button {
+  margin: 0 10px;
+}

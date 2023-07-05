@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>
+  Cambiar el estado del pedido
+</h1>
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="content">
+
+
+    <div class="row">
+
+      <mat-form-field class="full-width">
+        <mat-label>Proveedor</mat-label>
+        <mat-select formControlName="idProveedor">
+          <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.idProveedor">
+            {{proveedor.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+      <mat-form-field class="full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" >
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+
+      <mat-form-field>
+        <mat-label>Código</mat-label>
+        <input matInput formControlName="codigo" >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Marca</mat-label>
+        <input matInput formControlName="marca">
+      </mat-form-field>
+
+    </div>
+
+    <div class="row">
+
+      <mat-form-field>
+        <mat-label>Stock</mat-label>
+        <input matInput formControlName="stock" type="number">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Precio Lista</mat-label>
+        <input matInput formControlName="precioLista" type="number">
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="row">
+
+      <mat-form-field>
+        <mat-label>Precio Contado</mat-label>
+        <input matInput formControlName="precioContado" type="number">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Precio Financiado</mat-label>
+        <input matInput formControlName="precioFinanciado" type="number">
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="row">
+
+      <mat-form-field class="full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput placeholder="Consumo de 2200w 10A..." formControlName="descripcion"></textarea>
+      </mat-form-field>
+
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions class="action">
+    <button mat-raised-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">{{ data ? 'Actualizar' : 'Guardar'}}</button>
+  </div>
+</form>
