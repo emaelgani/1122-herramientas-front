@@ -6,11 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { VentaRoutingModule } from './venta-routing.module';
 import { LayoutVentaPageComponent } from './pages/layout-venta-page/layout-venta-page.component';
 import { VentaPageComponent } from './pages/venta-page/venta-page.component';
+import { DialogProductosVentaComponent } from './components/dialog-productos-venta/dialog-productos-venta.component';
 
 @NgModule({
   declarations: [
     LayoutVentaPageComponent,
-    VentaPageComponent
+    VentaPageComponent,
+    DialogProductosVentaComponent
   ],
   imports: [
     CommonModule,

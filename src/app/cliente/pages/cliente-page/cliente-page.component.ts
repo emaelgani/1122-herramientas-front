@@ -10,6 +10,7 @@ import { DialogClienteComponent } from '../../components/dialog-cliente/dialog-c
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { DialogNotaComponent } from '../../components/dialog-nota/dialog-nota.component';
 import { DialogVentaComponent } from '../../components/dialog-venta/dialog-venta.component';
+import { DialogPagoComponent } from '../../components/dialog-pago/dialog-pago.component';
 
 
 @Component({
@@ -62,6 +63,19 @@ export class ClientePageComponent {
 
   openDialogVenta(data: any){
     const dialogRef = this._dialog.open(DialogVentaComponent, {
+      data,
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getClientees();
+        }
+      }
+    });
+  }
+
+  openDialogPago(data: any){
+    const dialogRef = this._dialog.open(DialogPagoComponent, {
       data,
     });
     dialogRef.afterClosed().subscribe({

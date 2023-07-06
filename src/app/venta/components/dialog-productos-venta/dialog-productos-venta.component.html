@@ -1,0 +1,69 @@
+<h1 mat-dialog-title>
+  Lista de productos vendidos
+</h1>
+<div mat-dialog-content class="content">
+
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="producto">
+      <th mat-header-cell *matHeaderCellDef> Producto </th>
+      <td mat-cell *matCellDef="let row"> {{row.producto | titlecase}} </td>
+      <td mat-footer-cell *matFooterCellDef> Total </td>
+    </ng-container>
+
+    <ng-container matColumnDef="proveedor">
+      <th mat-header-cell *matHeaderCellDef> Proveedor </th>
+      <td mat-cell *matCellDef="let row"> {{row.proveedor | titlecase}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+      <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipoPrecio">
+      <th mat-header-cell *matHeaderCellDef> Tipo de precio </th>
+      <td mat-cell *matCellDef="let row"> {{row.tipoPrecio | titlecase}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="esPrecioEspecial">
+      <th mat-header-cell *matHeaderCellDef> Precio especial </th>
+      <td mat-cell *matCellDef="let row"> {{row.esPrecioEspecial == false ? 'No' : 'Si'}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="precioUnidad">
+      <th mat-header-cell *matHeaderCellDef> Precio unidad </th>
+      <td mat-cell *matCellDef="let row"> {{row.precioUnidad | currency: 'ARS': 'symbol'}}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+      <td mat-cell *matCellDef="let row"> {{row.cantidad}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef> Total </th>
+      <td mat-cell *matCellDef="let row"> {{row.total | currency: 'ARS': 'symbol'}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency: 'ARS': 'symbol'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+
+
+
+</div>
+
+<div mat-dialog-actions class="action">
+  <button mat-raised-button mat-dialog-close>Cerrar</button>
+</div>

@@ -9,10 +9,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DialogClienteComponent } from './components/dialog-cliente/dialog-cliente.component';
 import { DialogNotaComponent } from './components/dialog-nota/dialog-nota.component';
 import { DialogVentaComponent } from './components/dialog-venta/dialog-venta.component';
+import { DialogPagoComponent } from './components/dialog-pago/dialog-pago.component';
 
 
 @NgModule({
-  declarations: [ClientePageComponent, LayoutClientePageComponent, DialogClienteComponent, DialogNotaComponent, DialogVentaComponent],
+  declarations: [ClientePageComponent, LayoutClientePageComponent, DialogClienteComponent, DialogNotaComponent, DialogVentaComponent, DialogPagoComponent],
   imports: [
     CommonModule,
     MaterialModule,

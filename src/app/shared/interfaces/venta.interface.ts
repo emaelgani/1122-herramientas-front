@@ -3,6 +3,7 @@ export interface Venta {
   idCliente?: number;
   fecha: string;
   totalVenta?: number;
+  cliente?: string;
 }
 
 export interface VentaProducto {
@@ -14,6 +15,9 @@ export interface VentaProducto {
   esPrecioEspecial: boolean;
   precioUnidad: number;
   total: number;
+  proveedor?: string,
+  descripcion?: string,
+  tipoPrecio?: string,
 }
 
 export interface VentaCompleta {
