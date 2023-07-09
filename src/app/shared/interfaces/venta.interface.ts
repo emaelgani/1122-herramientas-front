@@ -25,3 +25,21 @@ export interface VentaCompleta {
   productos: VentaProducto[];
 }
 
+export interface VentaPorMes {
+  totalVentas: number;
+  mes: number;
+  anio: number;
+}
+
+export interface VentasProductos {
+  nombreCliente: string;
+  cantidadProductos: number;
+  cantidadVentas: number;
+}
+
+export interface ProductoMasVendidoPorCliente {
+  nombreCliente: string;
+  nombreProducto: string;
+  cantidadProductos: number;
+}
+

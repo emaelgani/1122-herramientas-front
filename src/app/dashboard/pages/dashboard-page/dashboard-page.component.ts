@@ -15,18 +15,18 @@ export class DashboardPageComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
+          { title: 'Clientes con más deuda acumulada', cols: 1, rows: 1 },
+          { title: 'Ingreso por mes', cols: 1, rows: 1 },
+          { title: 'Cantidad ventas y productos por cliente', cols: 1, rows: 1 },
+          { title: 'Productos más comprados por clientes', cols: 1, rows: 1 }
         ];
       }
 
       return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
+        { title: 'Clientes con más deuda acumulada', cols: 1, rows: 1 },
+        { title: 'Ingreso por mes', cols: 1, rows: 1 },
+        { title: 'Cantidad ventas y productos por cliente', cols: 1, rows: 1 },
+        { title: 'Productos más comprados por clientes', cols: 1, rows: 1 }
       ];
     })
   );

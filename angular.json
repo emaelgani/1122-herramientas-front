@@ -20,6 +20,7 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -28,7 +29,9 @@
               "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+
+            ]
           },
           "configurations": {
             "production": {
@@ -91,7 +94,7 @@
               "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [ "../node_modules/chart.js/dist/chart.js" ]
           }
         }
       }

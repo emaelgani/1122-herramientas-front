@@ -21,6 +21,10 @@ export class ClienteService {
     return this.http.get<Cliente[]>(`${this.url}/api/Cliente`);
   }
 
+  getCuatroClientesConMasDeuda(): Observable<Cliente[]>{
+    return this.http.get<Cliente[]>(`${this.url}/api/Cliente/CuatroConMasDeuda`);
+  }
+
   updateCliente(cliente: Cliente): Observable<Cliente[]>{
     if(!cliente.idCliente) throw Error('El id del cliente es requerido');
     return this.http.put<Cliente[]>(`${this.url}/api/Cliente`, cliente);
