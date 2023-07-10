@@ -13,6 +13,7 @@ import { ChartLineIngresoComponent } from './components/chart-line-ingreso/chart
 import { ChartBasicComprasComponent } from './components/chart-basic-compras/chart-basic-compras.component';
 import { FormsModule } from '@angular/forms';
 import { ChartProductosMasVendidosComponent } from './components/chart-productos-mas-vendidos/chart-productos-mas-vendidos.component';
+import { ChartLineProductoVendidoPorMesComponent } from './components/chart-line-producto-vendido-por-mes/chart-line-producto-vendido-por-mes.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ChartProductosMasVendidosComponent } from './components/chart-productos
     ChartLineIngresoComponent,
     ChartBasicComprasComponent,
     ChartProductosMasVendidosComponent,
+    ChartLineProductoVendidoPorMesComponent,
   ],
   imports: [
     CommonModule,

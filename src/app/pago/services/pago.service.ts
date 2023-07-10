@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Pago } from 'src/app/shared/interfaces/pago.interface';
+import { Pago, PagoPorMes, PagoYVentaPorMes } from 'src/app/shared/interfaces/pago.interface';
 import { environments } from 'src/environments/environments';
 
 @Injectable({
@@ -22,4 +22,13 @@ export class PagoService {
   getPagos(): Observable<Pago[]>{
     return this.http.get<Pago[]>(`${this.url}/api/Pago`);
   }
+
+  getPagosPorMes(): Observable<PagoPorMes[]>{
+    return this.http.get<PagoPorMes[]>(`${this.url}/PagosPorMes`);
+  }
+
+  getPagosYVentaPorMes(): Observable<PagoYVentaPorMes>{
+    return this.http.get<PagoYVentaPorMes>(`${this.url}/PagosYVentasPorMes`);
+  }
+
 }

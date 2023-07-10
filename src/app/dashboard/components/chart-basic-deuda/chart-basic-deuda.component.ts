@@ -15,7 +15,10 @@ export class ChartBasicDeudaComponent implements OnInit {
   private clienteService = inject(ClienteService);
 
   ngOnInit() {
+    this.getCuatroClientesConMasDeuda();
+  }
 
+  createChart(){
     this.basicData = {
       labels: [],
       datasets: [
@@ -59,17 +62,13 @@ export class ChartBasicDeudaComponent implements OnInit {
         }
       }
     };
-
-    this.getCuatroClientesConMasDeuda();
   }
-
-
 
   getCuatroClientesConMasDeuda() {
     this.clienteService.getCuatroClientesConMasDeuda()
       .subscribe({
         next: (res) => {
-
+          this.createChart();
           this.clientesConDeuda = res;
           this.basicData.labels = this.clientesConDeuda.map(cliente => cliente.nombre);
           this.basicData.datasets[0].data = this.clientesConDeuda.map(cliente => cliente.deuda);

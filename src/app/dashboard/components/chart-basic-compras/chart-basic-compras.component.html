@@ -3,7 +3,7 @@
   <mat-label>Rango de fechas</mat-label>
   <mat-date-range-input [rangePicker]="picker">
     <input matStartDate placeholder="Inicio" (dateChange)="onStartDateChange($event)">
-    <input matEndDate placeholder="Fin"  (dateChange)="onEndDateChange($event)">
+    <input matEndDate placeholder="Fin" (dateChange)="onEndDateChange($event)">
   </mat-date-range-input>
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>

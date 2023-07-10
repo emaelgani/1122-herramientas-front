@@ -10,6 +10,7 @@
         <input matInput [matDatepicker]="picker" placeholder="Seleccionar fecha de pedido" formControlName="fecha">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error>La fecha es obligatoria</mat-error>
       </mat-form-field>
 
     </div>
@@ -19,7 +20,8 @@
 
       <mat-form-field class="full-width">
         <mat-label>Descripción</mat-label>
-        <textarea matInput placeholder="Pinza para..." formControlName="descripcion"></textarea>
+        <textarea matInput placeholder="Busca una pinza para terminales de tipo..." formControlName="descripcion"></textarea>
+        <mat-error>La descripción es obligatoria</mat-error>
       </mat-form-field>
 
     </div>

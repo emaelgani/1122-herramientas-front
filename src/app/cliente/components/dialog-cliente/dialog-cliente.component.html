@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>
-  Cliente
+  {{this.data != null ? 'Modificar cliente' : 'Agregar cliente'}}
 </h1>
 <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <div mat-dialog-content class="content">
@@ -9,11 +9,13 @@
       <mat-form-field >
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
+        <mat-error>El nombre es obligatorio</mat-error>
       </mat-form-field>
 
       <mat-form-field >
         <mat-label>Teléfono</mat-label>
         <input matInput formControlName="telefono">
+        <mat-error>El teléfono es obligatorio</mat-error>
       </mat-form-field>
 
     </div>
@@ -23,7 +25,8 @@
 
       <mat-form-field  class="full-width" >
         <mat-label>Direccion</mat-label>
-        <textarea matInput placeholder="Calle ..." formControlName="direccion"></textarea>
+        <textarea matInput placeholder="Descripción..." formControlName="direccion"></textarea>
+        <mat-error>La descripción es obligatoria</mat-error>
       </mat-form-field>
 
     </div>

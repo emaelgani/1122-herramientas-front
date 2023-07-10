@@ -1,0 +1,14 @@
+<mat-form-field class="full-width">
+  <mat-label>Producto</mat-label>
+  <mat-select  (selectionChange)="onLabelSelected($event)" >
+    <mat-option>-- None --</mat-option>
+    <mat-optgroup *ngFor="let producto of productos" [label]="producto.name"
+                  [disabled]="producto.disabled">
+      <mat-option *ngFor="let producto of producto.productos" [value]="producto.idProducto">
+        {{producto.name}}
+      </mat-option>
+    </mat-optgroup>
+  </mat-select>
+</mat-form-field>
+
+<p-chart type="line" [data]="data" [options]="options" width="190"></p-chart>

@@ -9,11 +9,13 @@
       <mat-form-field >
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
+        <mat-error>El nombre es obligatorio</mat-error>
       </mat-form-field>
 
       <mat-form-field >
         <mat-label>Teléfono</mat-label>
         <input matInput formControlName="telefono">
+        <mat-error>El teléfono es obligatorio</mat-error>
       </mat-form-field>
 
     </div>
@@ -23,6 +25,7 @@
       <mat-form-field class="full-width">
         <mat-label>Descripción</mat-label>
         <textarea matInput placeholder="Trabaja con herramietnas de tipo..." formControlName="descripcion"></textarea>
+        <mat-error>La descripción es obligatoria</mat-error>
       </mat-form-field>
 
     </div>

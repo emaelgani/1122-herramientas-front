@@ -1,5 +1,5 @@
 import { Component, Inject, LOCALE_ID, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { map } from 'rxjs';
 import { ProductoService } from 'src/app/producto/services/producto.service';
@@ -41,16 +41,17 @@ export class DialogVentaComponent {
   private proveedorService = inject(ProveedorService);
   private productoService = inject(ProductoService);
   private ventaService = inject(VentaService);
+  private currencyPipe = inject(CurrencyPipe);
   private _dialog = inject(MatDialog);
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private currencyPipe: CurrencyPipe, @Inject(LOCALE_ID) private locale: string) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(LOCALE_ID) private locale: string) {
     this.getProductosPorProveedor();
   }
 
 
   myForm: FormGroup = this.fb.group({
-    fecha: [''],
+    fecha: ['', [Validators.required]],
     productos: this.fb.array([])
   });
 
@@ -62,11 +63,11 @@ export class DialogVentaComponent {
   agregarProducto(): void {
 
     const productoFormGroup = this.fb.group({
-      idProducto: [''],
-      idTipoPrecio: ['1'],
-      cantidad: [''],
+      idProducto: ['', [Validators.required]],
+      idTipoPrecio: ['1', [Validators.required]],
+      cantidad: ['', [Validators.required, Validators.min(1)]],
       esPrecioEspecial: [false],
-      precioUnidad: ['']
+      precioUnidad: ['', [Validators.required, Validators.min(1)]]
     });
 
     this.productosArray.push(productoFormGroup);
@@ -140,67 +141,73 @@ export class DialogVentaComponent {
   }
 
   onSubmit() {
-    //!TODO: Chequear que haya pedidos. Chequear que esté la fecha. Chequear que esten todos los datos de los pedidos.
 
     if (this.myForm.valid) {
-      const ventaObj: Venta = {
-        idCliente: this.data.idCliente,
-        fecha: this.myForm.value.fecha
 
+      if (this.myForm.value.productos.length == 0) {
+        this._snackBar.open('Debe agregar por lo menos 1 producto a la venta', 'ERROR');
       }
-      let totalVenta: number = 0;
+      else {
 
-      const ventaProductos: VentaProducto[] = [];
+        const ventaObj: Venta = {
+          idCliente: this.data.idCliente,
+          fecha: this.myForm.value.fecha
 
-      // Recorre el arreglo de productos y crea objetos VentaProducto
-      this.myForm.value.productos.forEach((producto: any) => {
-
-        const precioUnidadNumber = parseFloat(producto.precioUnidad.replace('.','').replace(',','.'));
-        const ventaProducto: VentaProducto = {
-          idProducto: producto.idProducto,
-          idTipoPrecio: producto.idTipoPrecio,
-          cantidad: producto.cantidad,
-          esPrecioEspecial: producto.esPrecioEspecial,
-          precioUnidad: precioUnidadNumber,
-          total: producto.cantidad * precioUnidadNumber
-        };
-        totalVenta += ventaProducto.total;
-        ventaProductos.push(ventaProducto);
-      });
-
-      ventaObj.totalVenta = totalVenta;
-
-      const finalObj: VentaCompleta = {
-        venta: ventaObj,
-        productos: ventaProductos
-      };
-
-
-      const dialogRef = this._dialog.open(ConfirmDialogComponent, {
-        data: '¿Estás seguro de guardar la venta?' // Puedes personalizar el mensaje de confirmación
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.ventaService.createVenta(finalObj)
-            .subscribe({
-              next: (res) => {
-                this._snackBar.open('Venta agregada correctamente', 'OK');
-                this.dialogRef.close(true);
-              },
-              error: (err) => {
-                console.error(err);
-              }
-            })
         }
-      });
+        let totalVenta: number = 0;
+
+        const ventaProductos: VentaProducto[] = [];
+
+        // Recorre el arreglo de productos y crea objetos VentaProducto
+        this.myForm.value.productos.forEach((producto: any) => {
+
+          const precioUnidadNumber = parseFloat(producto.precioUnidad.replace('.', '').replace(',', '.'));
+          const ventaProducto: VentaProducto = {
+            idProducto: producto.idProducto,
+            idTipoPrecio: producto.idTipoPrecio,
+            cantidad: producto.cantidad,
+            esPrecioEspecial: producto.esPrecioEspecial,
+            precioUnidad: precioUnidadNumber,
+            total: producto.cantidad * precioUnidadNumber
+          };
+          totalVenta += ventaProducto.total;
+          ventaProductos.push(ventaProducto);
+        });
+
+        ventaObj.totalVenta = totalVenta;
+
+        const finalObj: VentaCompleta = {
+          venta: ventaObj,
+          productos: ventaProductos
+        };
+
+
+        const dialogRef = this._dialog.open(ConfirmDialogComponent, {
+          data: '¿Estás seguro de guardar la venta?' // Puedes personalizar el mensaje de confirmación
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.ventaService.createVenta(finalObj)
+              .subscribe({
+                next: (res) => {
+                  this._snackBar.open('Venta agregada correctamente', 'OK');
+                  this.dialogRef.close(true);
+                },
+                error: (err) => {
+                  this._snackBar.open(err.error, 'ERROR');
+                  console.error(err);
+                }
+              })
+          }
+        });
+      }
     }
 
 
 
-
-
-
-
   }
+
+
+
 }

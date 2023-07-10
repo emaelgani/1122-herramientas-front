@@ -1,4 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { PagoService } from 'src/app/pago/services/pago.service';
+import { PagoPorMes, PagoYVentaPorMes } from 'src/app/shared/interfaces/pago.interface';
 import { VentaPorMes } from 'src/app/shared/interfaces/venta.interface';
 import { VentaService } from 'src/app/venta/services/venta.service';
 
@@ -9,13 +11,38 @@ import { VentaService } from 'src/app/venta/services/venta.service';
 })
 export class ChartLineIngresoComponent implements OnInit {
 
-  private ventaService = inject(VentaService);
-  basicData: any;
+
+
+  private pagoService = inject(PagoService);
   data: any;
   options: any;
 
   ngOnInit() {
+    this.getPagosYVentasPorMes();
+  }
 
+
+  createChart() {
+    const documentStyle = getComputedStyle(document.documentElement);
+
+    this.data = {
+      datasets: [
+        {
+          label: '',
+          data: [],
+          fill: false,
+          borderColor: documentStyle.getPropertyValue('--blue-500'),
+          tension: 0
+        },
+        {
+          label: '',
+          data: [],
+          fill: false,
+          borderColor: documentStyle.getPropertyValue('--pink-500'),
+          tension: 0
+        }
+      ]
+    };
 
     this.options = {
       maintainAspectRatio: false,
@@ -48,49 +75,64 @@ export class ChartLineIngresoComponent implements OnInit {
         }
       }
     };
-    this.getVentasPorMes();
   }
 
+  setLabels() {
+    this.data.labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  }
 
+  getPagosYVentasPorMes() {
 
-  getVentasPorMes() {
-    this.ventaService.getVentasPorMes()
+    this.pagoService.getPagosYVentaPorMes()
       .subscribe({
-        next: (res: VentaPorMes[]) => {
+        next: (res: PagoYVentaPorMes) => {
+          this.createChart();
+          this.setLabels();
 
           //Año actual
           const currentYear = new Date().getFullYear();
-          // Filtrar los resultados para obtener solo los del año actual
-          const ventasPorMesActual = res.filter(v => v.anio === currentYear);
-          // Obtener los nombres de los meses y los totales de ventas
-          const labels = ventasPorMesActual.map(v => this.getMonthName(v.mes));
-          const data: number[] = ventasPorMesActual.map(v => v.totalVentas);
+
+          let dataTotal: number[] = [];
+
+          for (let index = 0; index < res.ventas.length; index++) {
+
+            let indice: number = res.ventas.at(index)!.mes;
+            dataTotal[indice - 1] = res.ventas.at(index)!.totalVentas;
+          }
 
 
-          this.data = {
-            labels: labels,
-            datasets: [
-              {
-                label: `Ingreso por mes del año ${currentYear}`,
-                data: data,
-                fill: false,
-                borderColor: '#3f51b5',
-                tension: 0
-              }
-            ]
-          };
+          this.data.datasets[0].label = `Ventas por mes del año ${currentYear}`;
+          this.data.datasets[0].data = dataTotal;
+          this.data.datasets[0].fill = false;
+          this.data.datasets[0].borderColor = '#5565FA';
+          this.data.datasets[0].backgroundColor = '#5569FA6B';
+          this.data.datasets[0].tesion = 0;
+
+
+          let dataTotalPagos: number[] = [];
+
+          for (let index = 0; index < res.pagos.length; index++) {
+
+            let indice: number = res.pagos.at(index)!.mes;
+            dataTotalPagos[indice - 1] = res.pagos.at(index)!.totalPagos;
+          }
+
+
+          this.data.datasets[1].label = `Pagos por mes del año ${currentYear}`;
+          this.data.datasets[1].data = dataTotalPagos;
+          this.data.datasets[1].fill = false;
+          this.data.datasets[1].borderColor = '#FA5596';
+          this.data.datasets[1].backgroundColor = '#FA559666';
+          this.data.datasets[1].tesion = 0;
+
+
         },
         error: (err) => {
           console.error(err);
         }
-      })
+      });
   }
 
-  private getMonthName(month: number): string {
-    const monthNames = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-    ];
-    return monthNames[month - 1];
-  }
+
+
 }

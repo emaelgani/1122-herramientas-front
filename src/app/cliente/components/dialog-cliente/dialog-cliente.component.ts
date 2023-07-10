@@ -1,5 +1,5 @@
 import { Component, Inject, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClienteService } from '../../services/cliente.service';
@@ -19,9 +19,9 @@ export class DialogClienteComponent implements OnInit {
   private _snackBar = inject(MatSnackBar);
 
   public myForm: FormGroup = this.fb.group({
-    nombre: ['', []],
-    telefono: ['', []],
-    direccion: ['', []],
+    nombre: ['', [Validators.required]],
+    telefono: ['', [Validators.required]],
+    direccion: ['', [Validators.required]],
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {

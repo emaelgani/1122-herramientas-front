@@ -1,5 +1,5 @@
 import { Component, Inject, inject, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClienteService } from '../../services/cliente.service';
@@ -20,8 +20,8 @@ export class DialogNotaComponent implements OnInit {
   public nombreCliente = signal('');
 
   public myForm: FormGroup = this.fb.group({
-    fecha: ['', []],
-    descripcion: ['', []],
+    fecha: ['', [Validators.required]],
+    descripcion: ['', [Validators.required]],
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {

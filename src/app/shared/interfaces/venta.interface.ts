@@ -26,6 +26,7 @@ export interface VentaCompleta {
 }
 
 export interface VentaPorMes {
+  nombreProducto?: string;
   totalVentas: number;
   mes: number;
   anio: number;

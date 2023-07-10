@@ -28,6 +28,10 @@ export class VentaService {
     return this.http.get<VentaPorMes[]>(`${this.url}/VentasPorMes`);
   }
 
+  getVentasProductoPorMes(idProducto: number): Observable<VentaPorMes[]>{
+    return this.http.get<VentaPorMes[]>(`${this.url}/VentasPorMesByIdProducto?idProducto=${idProducto}`);
+  }
+
   getProductosPorVentas(fechaInicio: string, fechaFin: string): Observable<VentasProductos[]> {
     return this.http.get<VentasProductos[]>(`${this.url}/ProductosPorVentas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
   }

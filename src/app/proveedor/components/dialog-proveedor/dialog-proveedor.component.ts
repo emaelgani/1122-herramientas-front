@@ -1,9 +1,8 @@
 import { ProveedorService } from './../../services/proveedor.service';
 import { Component, Inject, inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Pedido } from 'src/app/shared/interfaces/pedido.interface';
 import { Proveedor } from 'src/app/shared/interfaces/proveedor.interface';
 
 @Component({
@@ -19,9 +18,9 @@ export class DialogProveedorComponent {
   private _snackBar = inject(MatSnackBar);
 
   public myForm: FormGroup = this.fb.group({
-    nombre: ['', []],
-    telefono: ['', []],
-    descripcion: ['', []],
+    nombre: ['', [Validators.required]],
+    telefono: ['', [Validators.required]],
+    descripcion: ['', [Validators.required]],
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Proveedor) {

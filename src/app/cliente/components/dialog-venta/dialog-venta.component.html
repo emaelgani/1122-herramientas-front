@@ -10,76 +10,80 @@
             <input matInput [matDatepicker]="picker" formControlName="fecha">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error>La fecha es obligatoria</mat-error>
           </mat-form-field>
         </div>
 
         <!-- DATOS DEL PRODUCTO -->
         <div formArrayName="productos">
-        <div *ngFor="let producto of productosArray.controls; let i = index">
-          <div [formGroupName]="i">
+          <div *ngFor="let producto of productosArray.controls; let i = index">
+            <div [formGroupName]="i">
 
-          <div class="container">
+              <div class="container">
 
-            <span>Producto {{i+1}}</span>
+                <span>Producto {{i+1}}</span>
 
-            <button class="buton-title" mat-icon-button color="accent" matTooltip="Eliminar producto de la venta"
-              (click)="deleteProducto(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
+                <button class="buton-title" mat-icon-button color="accent" matTooltip="Eliminar producto de la venta"
+                  (click)="deleteProducto(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+
+
+              <mat-divider class="mb-9"></mat-divider>
+
+              <div class="row">
+
+                <mat-form-field class="full-width">
+                  <mat-label>Producto</mat-label>
+                  <mat-select formControlName="idProducto" (selectionChange)="onLabelSelected($event, i)">
+                    <mat-option>-- None --</mat-option>
+                    <mat-optgroup *ngFor="let producto of productos" [label]="producto.name"
+                      [disabled]="producto.disabled">
+                      <mat-option *ngFor="let producto of producto.productos" [value]="producto.idProducto">
+                        {{producto.name}}
+                      </mat-option>
+                    </mat-optgroup>
+                  </mat-select>
+                  <mat-error>El producto es obligatorio</mat-error>
+                </mat-form-field>
+
+
+
+
+              </div>
+
+              <div class="row">
+                <mat-radio-group formControlName="idTipoPrecio" (change)="onLabelSelected($event, i)">
+                  <mat-radio-button value="1">Precio al contado</mat-radio-button>
+                  <mat-radio-button value="2">Precio financiado</mat-radio-button>
+                </mat-radio-group>
+
+                <mat-checkbox formControlName="esPrecioEspecial">Es precio especial</mat-checkbox>
+              </div>
+
+              <div class="row">
+
+
+                <mat-form-field class="full-width">
+                  <mat-label>Precio unidad</mat-label>
+                  <input matInput formControlName="precioUnidad">
+                  <mat-error >El precio debe ser mayor que 1</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                  <mat-label>Cantidad</mat-label>
+                  <input matInput placeholder="1" type="number" formControlName="cantidad">
+                  <mat-error>La cantidad debe ser mayor que 1</mat-error>
+                </mat-form-field>
+              </div>
+
+
+
+            </div>
           </div>
-
-
-          <mat-divider class="mb-9"></mat-divider>
-
-          <div class="row">
-
-            <mat-form-field class="full-width">
-              <mat-label>Producto</mat-label>
-              <mat-select formControlName="idProducto" (selectionChange)="onLabelSelected($event, i)" >
-                <mat-option>-- None --</mat-option>
-                <mat-optgroup *ngFor="let producto of productos" [label]="producto.name"
-                              [disabled]="producto.disabled">
-                  <mat-option *ngFor="let producto of producto.productos" [value]="producto.idProducto">
-                    {{producto.name}}
-                  </mat-option>
-                </mat-optgroup>
-              </mat-select>
-            </mat-form-field>
-
-
-
-
-          </div>
-
-          <div class="row">
-            <mat-radio-group formControlName="idTipoPrecio" (change)="onLabelSelected($event, i)">
-              <mat-radio-button value="1">Precio al contado</mat-radio-button>
-              <mat-radio-button value="2">Precio financiado</mat-radio-button>
-            </mat-radio-group>
-
-            <mat-checkbox formControlName="esPrecioEspecial">Es precio especial</mat-checkbox>
-          </div>
-
-          <div class="row">
-
-
-            <mat-form-field class="full-width">
-              <mat-label>Precio unidad</mat-label>
-              <input matInput  formControlName="precioUnidad">
-            </mat-form-field>
-
-            <mat-form-field class="full-width">
-              <mat-label>Cantidad</mat-label>
-              <input matInput placeholder="1" type="number" formControlName="cantidad">
-            </mat-form-field>
-          </div>
-
-
-
+          <!-- FIN DE DATOS DEL PRODUCTO -->
         </div>
-      </div>
-        <!-- FIN DE DATOS DEL PRODUCTO -->
-      </div>
         <div>
           <button mat-button color="accent" (click)="agregarProducto()">Agregar producto</button>
           <button mat-button matStepperNext>Finalizar venta</button>
