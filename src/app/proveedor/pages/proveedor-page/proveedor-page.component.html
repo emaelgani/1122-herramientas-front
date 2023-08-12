@@ -2,9 +2,9 @@
   <div class="filter-container">
     <mat-form-field>
       <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Juan..." #input>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Juan..." #input autocomplete="off">
     </mat-form-field>
-    <button mat-mini-fab color="primary" (click)="openDialogNewProveedor()">
+    <button mat-mini-fab color="primary" matTooltip="Agregar nuevo proveedor" (click)="openDialogNewProveedor()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -35,6 +35,12 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef > Action </th>
         <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="accent" matTooltip="Descargar lista de precios" (click)="descargarListaPrecios(row.idProveedor)">
+            <mat-icon>download</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" matTooltip="Aumentar porcentaje a productos" (click)="openDialogAumentarPorcentaje(row.idProveedor)">
+            <mat-icon>trending_up</mat-icon>
+          </button>
           <button mat-icon-button color="primary" matTooltip="Editar proveedor" (click)="openEditDialogProveedor(row)">
             <mat-icon>edit</mat-icon>
           </button>

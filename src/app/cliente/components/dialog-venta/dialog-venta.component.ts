@@ -1,7 +1,7 @@
 import { Component, Inject, LOCALE_ID, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { map } from 'rxjs';
+import { Observable, map, startWith } from 'rxjs';
 import { ProductoService } from 'src/app/producto/services/producto.service';
 import { ProveedorService } from 'src/app/proveedor/services/proveedor.service';
 import { Producto } from 'src/app/shared/interfaces/producto.interface';
@@ -19,11 +19,7 @@ interface ProductoSelect {
   name: string;
 }
 
-interface ProductoGroup {
-  disabled?: boolean;
-  name: string;
-  productos: ProductoSelect[];
-}
+
 
 @Component({
   selector: 'app-dialog-venta',
@@ -32,8 +28,8 @@ interface ProductoGroup {
 })
 export class DialogVentaComponent {
 
-  productos: ProductoGroup[] = [
-  ];
+  productos: Producto[] = [];
+
 
   public dialogRef = inject(MatDialogRef<DialogClienteComponent>);
   private _snackBar = inject(MatSnackBar);
@@ -46,9 +42,16 @@ export class DialogVentaComponent {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, @Inject(LOCALE_ID) private locale: string) {
-    this.getProductosPorProveedor();
+    this.getProductos();
+
+    this.filteredProductos = this.stateCtrl.valueChanges.pipe(
+      startWith(''),
+      map(producto => (producto ? this._filterStates(producto) : this.productos.slice())),
+    );
   }
 
+  stateCtrl = new FormControl('');
+  filteredProductos!: Observable<Producto[]>;
 
   myForm: FormGroup = this.fb.group({
     fecha: ['', [Validators.required]],
@@ -56,21 +59,34 @@ export class DialogVentaComponent {
   });
 
 
+  private _filterStates(value: string): Producto[] {
+    const filterValue = value.toLowerCase();
+
+    return this.productos.filter(producto => producto.nombre.toLowerCase().includes(filterValue) ||
+      producto?.nombreProveedor?.toLowerCase().includes(filterValue));
+  }
+
   get productosArray(): FormArray {
     return this.myForm.get('productos') as FormArray;
   }
 
   agregarProducto(): void {
+    const newFormControl = new FormControl('');
 
     const productoFormGroup = this.fb.group({
       idProducto: ['', [Validators.required]],
       idTipoPrecio: ['1', [Validators.required]],
-      cantidad: ['', [Validators.required, Validators.min(1)]],
+      cantidad: [1, [Validators.required, Validators.min(1)]],
       esPrecioEspecial: [false],
-      precioUnidad: ['', [Validators.required, Validators.min(1)]]
+      precioUnidad: ['', [Validators.required, Validators.min(1)]],
+      nombreProducto: [''],
+      stateCtrl: newFormControl
+
     });
 
     this.productosArray.push(productoFormGroup);
+    // Restablecer el valor del FormControl
+    newFormControl.setValue('');
   }
 
   deleteProducto(index: number) {
@@ -79,8 +95,23 @@ export class DialogVentaComponent {
 
 
   onLabelSelected(event: any, i: number) {
+    if (!this.productosArray.at(i).value.idProducto || !!event.option) {
+      const firstValuePattern = /^([^|]+)/; // Expresión regular para capturar el primer valor antes del primer "|" (no incluye espacios)
 
-    const idProducto = this.productosArray.at(i).value.idProducto
+      const firstValueMatch = event.option.viewValue.match(firstValuePattern);
+      const idPattern = /ID: (\d+)/; // Expresión regular para buscar el patrón "ID: <número>"
+      const match = event.option.viewValue.match(idPattern);
+
+
+      if (match && match.length > 1 && firstValueMatch && firstValueMatch.length > 1) {
+        this.productosArray.at(i).patchValue({
+          idProducto: match[1],
+          nombreProducto: firstValueMatch[1].trim()
+        })
+      }
+    }
+
+    const idProducto = this.productosArray.at(i).value.idProducto;
 
     if (!idProducto) {
       //TODO: Si producto es null, no seguir. Crear cartel de error.
@@ -93,7 +124,7 @@ export class DialogVentaComponent {
           next: (res: Producto) => {
             const label = 'precioUnidad';
             const patchValueObj: Record<string, any> = {};
-            patchValueObj[label] = event.value == 1 ? res.precioContado : res.precioFinanciado;
+            patchValueObj[label] = this.productosArray.at(i).value.idTipoPrecio == '1' ? res.precioContado : res.precioFinanciado;
             this.productosArray.at(i).patchValue(patchValueObj);
 
             // Aplicar formato de moneda con dos decimales al campo "precioUnidad"
@@ -112,24 +143,8 @@ export class DialogVentaComponent {
 
 
 
-  getProductosPorProveedor() {
-    this.proveedorService.getProveedores()
-      .pipe(
-        map((res: Proveedor[]) => {
-          return res.map((proveedor: Proveedor) => {
-            const productos = proveedor.productos?.map((producto: Producto) => ({
-              idProducto: producto.idProducto,
-              name: producto.nombre,
-            })) || [];
-
-            return {
-              disabled: false,
-              name: proveedor.nombre,
-              productos: productos
-            };
-          }).sort((a, b) => a.name.localeCompare(b.name)); // Ordenar por proveedor.nombre
-        })
-      )
+  getProductos() {
+    this.productoService.getProductos()
       .subscribe({
         next: (res: any) => {
           this.productos = res;

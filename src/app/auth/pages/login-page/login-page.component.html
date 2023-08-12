@@ -1,0 +1,30 @@
+<div class="container">
+  <mat-card class="login-card">
+    <div class="logo">
+      <!-- Puedes cargar tu logo como una imagen -->
+      <img src="../../../../assets/icon-login.png" alt="Logo" class="icon-logo">
+
+    </div>
+    <mat-card-content>
+      <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="login()">
+
+        <mat-form-field>
+          <mat-label>Usuario</mat-label>
+          <input type="text" matInput placeholder="Usuario" formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput placeholder="Contraseña" formControlName="password">
+        </mat-form-field>
+
+        <div class="button-container">
+          <button mat-button mat-flat-button color="primary" [disabled]="myForm.invalid">
+            <mat-icon>save</mat-icon>
+            Ingresar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -5,5 +5,12 @@ export interface Proveedor {
   nombre: string,
   telefono: string,
   descripcion: string
+  sumaGastoMensual: boolean,
   productos?: Producto[]
+}
+
+
+export interface ProveedorAumento {
+  idProveedor: number,
+  porcentaje: number
 }

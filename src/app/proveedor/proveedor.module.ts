@@ -8,12 +8,14 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { ProveedorPageComponent } from './pages/proveedor-page/proveedor-page.component';
 import { ProveedorRoutingModule } from './proveedor-routing.module';
 import { DialogProveedorComponent } from './components/dialog-proveedor/dialog-proveedor.component';
+import { DialogAuemtarPorcentajeComponent } from './components/dialog-auemtar-porcentaje/dialog-auemtar-porcentaje.component';
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
     ProveedorPageComponent,
-    DialogProveedorComponent
+    DialogProveedorComponent,
+    DialogAuemtarPorcentajeComponent
     // DialogPedidoChangeStatusComponent
 
 

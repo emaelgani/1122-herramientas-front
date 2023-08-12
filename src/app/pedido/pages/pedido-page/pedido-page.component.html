@@ -2,7 +2,7 @@
   <div class="filter-container">
     <mat-form-field>
       <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Juan..." #input>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Juan..." #input autocomplete="off">
     </mat-form-field>
   </div>
 
@@ -21,7 +21,7 @@
 
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-        <td mat-cell *matCellDef="let row"> {{row.fecha | date: 'dd/MM/yyyy' | uppercase }} </td>
+        <td mat-cell *matCellDef="let row"> {{row.fecha | date: 'dd/MM/yyyy' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="estado">

@@ -12,5 +12,6 @@ export interface Producto  {
   stock: number;
   idProveedor: number;
   nombreProveedor?: string;
+  cantidadVentas?: number,
   proveedor?: Proveedor;
 }

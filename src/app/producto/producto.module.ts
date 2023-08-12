@@ -7,12 +7,14 @@ import { LayoutProductoPageComponent } from './pages/layout-producto-page/layout
 import { ProductoPageComponent } from './pages/producto-page/producto-page.component';
 import { ProductoRoutingModule } from './producto-routing.module';
 import { DialogProductoComponent } from './components/dialog-producto/dialog-producto.component';
+import { DialogClienteVentasComponent } from './components/dialog-cliente-ventas/dialog-cliente-ventas.component';
 
 @NgModule({
   declarations: [
     LayoutProductoPageComponent,
     ProductoPageComponent,
     DialogProductoComponent,
+    DialogClienteVentasComponent,
     /* DialogPedidoChangeStatusComponent */
   ],
   imports: [

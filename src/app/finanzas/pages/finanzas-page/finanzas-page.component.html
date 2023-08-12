@@ -1,0 +1,119 @@
+<div class="grid-container">
+
+  <div class="table-container">
+    <table mat-table [dataSource]="transactions3" class="mat-elevation-z8">
+      <ng-container matColumnDef="item">
+        <th mat-header-cell *matHeaderCellDef> Item </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.item }} </td>
+        <td mat-footer-cell *matFooterCellDef> Total </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cost">
+        <th mat-header-cell *matHeaderCellDef> Cost </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.cost | currency: 'ARS': 'symbol'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{getTotalCost(transactions3) | currency: 'ARS': 'symbol'}} </td>
+
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
+      <ng-container matColumnDef="item">
+        <th mat-header-cell *matHeaderCellDef> Item </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.item }} </td>
+        <td mat-footer-cell *matFooterCellDef> Total </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cost">
+        <th mat-header-cell *matHeaderCellDef> Cost </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.cost | currency: 'ARS': 'symbol'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{getTotalCost(transactions) | currency: 'ARS': 'symbol'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="transactions2" class="mat-elevation-z8">
+      <ng-container matColumnDef="item">
+        <th mat-header-cell *matHeaderCellDef> Item </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.item }} </td>
+        <td mat-footer-cell *matFooterCellDef> Total </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cost">
+        <th mat-header-cell *matHeaderCellDef> Cost </th>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.cost | currency: 'ARS': 'symbol'}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{getTotalCost(transactions2) | currency: 'ARS': 'symbol'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+  </div>
+
+
+
+</div>
+<mat-divider></mat-divider>
+<div class="grid-container">
+
+  <mat-form-field class="example-form-field">
+    <mat-label>Cobranzas y ventas</mat-label>
+    <mat-date-range-input [rangePicker]="rangePicker">
+      <input matStartDate placeholder="Inicio" (dateChange)="onStartDateChange($event)">
+      <input matEndDate placeholder="Fin" (dateChange)="onEndDateChange($event)">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker>
+      <mat-date-range-picker-actions>
+        <button mat-button matDateRangePickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+      </mat-date-range-picker-actions>
+    </mat-date-range-picker>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Cobranzas</mat-label>
+    <input matInput disabled [value]="cobranzas | currency: 'ARS': 'symbol'">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Ventas</mat-label>
+    <input matInput disabled [value]="ventas | currency: 'ARS': 'symbol'">
+  </mat-form-field>
+
+</div>
+<mat-divider></mat-divider>
+
+<div class="grid-container">
+  <mat-form-field class="example-form-field">
+    <mat-label>Gastos</mat-label>
+    <mat-date-range-input [rangePicker]="rangePicker2">
+      <input matStartDate placeholder="Inicio" (dateChange)="onStartDateChangeGastos($event)">
+      <input matEndDate placeholder="Fin" (dateChange)="onEndDateChangeGastos($event)">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="rangePicker2"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker2>
+      <mat-date-range-picker-actions>
+        <button mat-button matDateRangePickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+      </mat-date-range-picker-actions>
+    </mat-date-range-picker>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Gastos</mat-label>
+    <input matInput disabled [value]="gastos | currency: 'ARS': 'symbol'">
+  </mat-form-field>
+
+</div>

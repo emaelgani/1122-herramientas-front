@@ -12,6 +12,7 @@ import { ProductoService } from './../../services/producto.service';
 import { Producto } from 'src/app/shared/interfaces/producto.interface';
 import { map } from 'rxjs';
 import { DialogProductoComponent } from '../../components/dialog-producto/dialog-producto.component';
+import { DialogClienteVentasComponent } from '../../components/dialog-cliente-ventas/dialog-cliente-ventas.component';
 
 @Component({
   selector: 'app-producto-page',
@@ -23,7 +24,7 @@ export class ProductoPageComponent {
 
 
 
-    displayedColumns: string[] = ['idProducto', 'nombreProveedor', 'nombre', 'marca', 'codigo',  'stock', 'precioLista' , 'precioFinanciado', 'precioContado', 'descripcion', 'action'];
+    displayedColumns: string[] = ['idProducto', 'nombreProveedor', 'nombre', 'marca', 'codigo',  'stock', 'precioLista' , 'precioFinanciado', 'precioContado', 'descripcion', 'cantidadVentas','action'];
     dataSource!: MatTableDataSource<Producto>;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -42,9 +43,6 @@ export class ProductoPageComponent {
     getProductos() {
       this.productoService.getProductos().pipe(
       map( res => {
-        res.forEach( product => {
-          product.nombreProveedor = product.proveedor!.nombre;
-        });
         return res.sort((a, b) => a.nombreProveedor!.localeCompare(b.nombreProveedor!));
       })
       )
@@ -107,6 +105,16 @@ export class ProductoPageComponent {
       });
     }
 
+    opendDialogClientesMasVentas(idProducto: number){
+      const dialogRef = this._dialog.open(DialogClienteVentasComponent, {data: idProducto});
+      dialogRef.afterClosed().subscribe({
+        next: (val) => {
+          if (val) {
+            this.getProductos();
+          }
+        }
+      });
+    }
 
     applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;

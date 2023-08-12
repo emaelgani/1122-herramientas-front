@@ -31,4 +31,11 @@ export class PagoService {
     return this.http.get<PagoYVentaPorMes>(`${this.url}/PagosYVentasPorMes`);
   }
 
+  getLiquidezEfectivo(): Observable<number>{
+    return this.http.get<number>(`${this.url}/api/Pago/LiquidezEfectivo`);
+  }
+
+  getLiquidezDigital(): Observable<number>{
+    return this.http.get<number>(`${this.url}/api/Pago/LiquidezDigital`);
+  }
 }

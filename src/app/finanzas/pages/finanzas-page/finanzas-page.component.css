@@ -1,0 +1,34 @@
+.custom-mat-list {
+  width: 100%;
+}
+
+.custom-mat-list-item {
+  text-align: left;
+}
+
+table {
+  width: 100%;
+  margin-top: 8px;
+}
+
+tr.mat-mdc-footer-row td {
+  font-weight: bold;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Divide el ancho en tres columnas iguales */
+  grid-gap: 20px; /* Espacio entre las tablas */
+  margin: 20px;
+}
+
+.table-container {
+  width: 100%;
+}
+.example-month-picker .mat-calendar-period-button {
+  pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+  display: none;
+}

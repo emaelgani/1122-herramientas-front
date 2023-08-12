@@ -1,0 +1,36 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #545454;
+}
+
+.login-card {
+  width: 300px;
+  max-width: 100%;
+  padding: 30px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+  height: 100px;
+}
+
+.icon-logo {
+  height: 100px;
+  border-radius: 8px;
+}

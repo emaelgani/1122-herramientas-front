@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>
+  Monto del compromiso {{data.monto | currency: 'ARS': 'symbol'}}
+</h1>
+<form autocomplete="off" [formGroup]="myForm" (submit)="onSubmit()">
+  <div mat-dialog-content class="content">
+
+
+
+    <div class="row">
+      <mat-form-field class="full-width">
+        <mat-label>Pago Efectivo</mat-label>
+        <input matInput type="number" formControlName="pagoEfectivo">
+        <mat-error>El monto es obligatorio</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="full-width">
+        <mat-label>Pago Digital</mat-label>
+        <input matInput type="number" formControlName="pagoDigital">
+        <mat-error>El monto es obligatorio</mat-error>
+      </mat-form-field>
+    </div>
+
+
+  </div>
+
+
+  <div mat-dialog-actions class="action">
+    <button mat-raised-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </div>
+</form>

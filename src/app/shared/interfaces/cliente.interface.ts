@@ -3,5 +3,10 @@ export interface Cliente {
   nombre:    string;
   telefono:  string;
   direccion:  string;
-  deuda:  number;
+  deuda?:  number;
+}
+
+export interface ClienteCantidadProducto extends Cliente {
+  ultimaVenta: string;
+  cantidadVendidos: number;
 }

@@ -31,7 +31,6 @@ export class DialogProductoComponent {
     idProveedor: ['', [Validators.required]],
     nombre: ['', [Validators.required]],
     codigo: ['', [Validators.required]],
-    estado: ['', [Validators.required]],
     marca: ['', [Validators.required]],
     stock: ['', [Validators.required, Validators.min(0)]],
     precioLista: ['', [Validators.required, Validators.min(0)]],
@@ -66,7 +65,6 @@ export class DialogProductoComponent {
   }
 
   onSubmit(): void {
-
     if (this.myForm.valid) {
 
       if (this.data) {
@@ -116,6 +114,8 @@ export class DialogProductoComponent {
           }
         })
       }
+    }else{
+      console.log('entra acca');
     }
 
   }

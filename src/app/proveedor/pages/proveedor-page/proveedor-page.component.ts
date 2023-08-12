@@ -8,6 +8,7 @@ import { ProveedorService } from '../../services/proveedor.service';
 import { Proveedor } from 'src/app/shared/interfaces/proveedor.interface';
 import { DialogProveedorComponent } from '../../components/dialog-proveedor/dialog-proveedor.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { DialogAuemtarPorcentajeComponent } from '../../components/dialog-auemtar-porcentaje/dialog-auemtar-porcentaje.component';
 
 @Component({
   selector: 'app-proveedor-page',
@@ -31,6 +32,9 @@ export class ProveedorPageComponent {
     this.getProveedores();
   }
 
+  descargarListaPrecios(idProveedor: number){
+    this.proveedorService.dowloadPdfPrecioLista(idProveedor);
+  }
 
   getProveedores() {
     this.proveedorService.getProveedores()
@@ -68,10 +72,19 @@ export class ProveedorPageComponent {
     });
   }
 
+  openDialogAumentarPorcentaje(idProveedor: number){
+    const dialogRef = this._dialog.open(DialogAuemtarPorcentajeComponent, { data: idProveedor });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getProveedores();
+        }
+      }
+    });
+  }
 
 
-  deleteProveedor
-  (idProveedor: number) {
+  deleteProveedor(idProveedor: number) {
     const dialogRef = this._dialog.open(ConfirmDialogComponent, {
       data: '¿Estás seguro de que deseas eliminar este proveedor?' // Puedes personalizar el mensaje de confirmación
     });

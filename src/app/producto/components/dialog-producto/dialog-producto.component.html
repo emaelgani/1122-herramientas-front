@@ -48,13 +48,13 @@
       <mat-form-field>
         <mat-label>Stock</mat-label>
         <input matInput formControlName="stock" type="number">
-        <mat-error *ngIf="isValiedField('stock')" >EL stock debe ser mayor que 0</mat-error>
+        <mat-error>EL stock debe ser mayor que 0</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Precio Lista</mat-label>
         <input matInput formControlName="precioLista" type="number">
-        <mat-error *ngIf="isValiedField('precioLista')" >EL precio debe ser mayor que 0</mat-error>
+        <mat-error>EL precio debe ser mayor que 0</mat-error>
       </mat-form-field>
 
     </div>
@@ -65,13 +65,13 @@
       <mat-form-field>
         <mat-label>Precio Contado</mat-label>
         <input matInput formControlName="precioContado" type="number">
-        <mat-error *ngIf="isValiedField('precioContado')" >Precio mayor que 0</mat-error>
+        <mat-error>Precio mayor que 0</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Precio Financiado</mat-label>
         <input matInput formControlName="precioFinanciado" type="number">
-        <mat-error *ngIf="isValiedField('precioFinanciado')" >Precio mayor que 0</mat-error>
+        <mat-error>Precio mayor que 0</mat-error>
       </mat-form-field>
 
     </div>

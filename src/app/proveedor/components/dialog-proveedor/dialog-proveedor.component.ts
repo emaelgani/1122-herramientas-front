@@ -21,16 +21,14 @@ export class DialogProveedorComponent {
     nombre: ['', [Validators.required]],
     telefono: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
+    sumaGastoMensual: [false]
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Proveedor) {
   }
 
   ngOnInit(): void {
-    const data = {
-      ...this.data,
-    };
-    this.myForm.patchValue(data);
+    this.myForm.patchValue({...this.data});
   }
 
 
@@ -45,6 +43,7 @@ export class DialogProveedorComponent {
           nombre: this.myForm.value.nombre,
           telefono: this.myForm.value.telefono,
           descripcion: this.myForm.value.descripcion,
+          sumaGastoMensual: this.myForm.value.sumaGastoMensual
         };
 
         this.proveedorService.updateProveedor(transformedObj).subscribe({

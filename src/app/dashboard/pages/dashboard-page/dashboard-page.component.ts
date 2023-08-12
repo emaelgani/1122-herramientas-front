@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import { CompromisoService } from 'src/app/calendar/services/compromiso.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -9,6 +11,8 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardPageComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  private compromisoService = inject(CompromisoService);
+  private _snackBar = inject(MatSnackBar);
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -32,4 +36,23 @@ export class DashboardPageComponent {
       ];
     })
   );
+
+  constructor() {
+    this.getCantidadCompromisosHoy();
+  }
+
+  getCantidadCompromisosHoy(){
+    this.compromisoService.getCompromisosNoSaldadosHoy().subscribe({
+      next: (value) => {
+        if(value>0){
+          this._snackBar.open(`La cantidad de compromisos para saldar el día de hoy es de: ${value}`, 'OK');
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+
 }

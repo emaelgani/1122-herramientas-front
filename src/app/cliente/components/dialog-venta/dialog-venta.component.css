@@ -41,10 +41,13 @@ span {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 10px;
 }
 
 .buton-title {
   font-size: inherit;
 }
 
-
+.button-save{
+  margin-top: 4px;
+}

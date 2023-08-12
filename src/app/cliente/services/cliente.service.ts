@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environments } from 'src/environments/environments';
 import { Observable } from 'rxjs';
-import { Cliente } from '../../shared/interfaces/cliente.interface';
+import { Cliente, ClienteCantidadProducto } from '../../shared/interfaces/cliente.interface';
 import { Pedido } from 'src/app/shared/interfaces/pedido.interface';
 
 @Injectable({
@@ -42,4 +42,11 @@ export class ClienteService {
     return this.http.post<Pedido[]>(`${this.url}/api/Pedido`, pedido);
   }
 
+  getTotalDeuda(): Observable<number>{
+    return this.http.get<number>(`${this.url}/api/Cliente/TotalDeuda`);
+  }
+
+  getClientesVentaProducto(idProducto: number): Observable<ClienteCantidadProducto[]>{
+    return this.http.get<ClienteCantidadProducto[]>(`${this.url}/api/Cliente/ClientesCompraronProducto/${idProducto}`);
+  }
 }

@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>
   {{this.data != null ? 'Modificar cliente' : 'Agregar cliente'}}
 </h1>
-<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<form  [formGroup]="myForm" (ngSubmit)="onSubmit()" autocomplete="off">
   <div mat-dialog-content class="content">
 
     <div class="row">

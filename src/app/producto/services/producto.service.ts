@@ -21,6 +21,18 @@ export class ProductoService {
     return this.http.get<Producto[]>(`${this.url}/api/Producto`);
   }
 
+  getTotalValorStock(): Observable<number>{
+    return this.http.get<number>(`${this.url}/api/Producto/ValorTotalStock`);
+  }
+
+  getTotalValorStockFinanciado(): Observable<number>{
+    return this.http.get<number>(`${this.url}/api/Producto/ValorTotalStockFinanciado`);
+  }
+
+  getTotalValorStockContado(): Observable<number>{
+    return this.http.get<number>(`${this.url}/api/Producto/ValorTotalStockContado`);
+  }
+
   updateProducto(producto: Producto): Observable<Producto[]>{
     if(!producto.idProducto) throw Error('El id del producto es requerido');
     return this.http.put<Producto[]>(`${this.url}/api/Producto`, producto);

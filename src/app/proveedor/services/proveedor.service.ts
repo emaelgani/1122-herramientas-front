@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Proveedor } from 'src/app/shared/interfaces/proveedor.interface';
+import { Proveedor, ProveedorAumento } from 'src/app/shared/interfaces/proveedor.interface';
 import { environments } from 'src/environments/environments';
 
 @Injectable({
@@ -23,6 +23,11 @@ export class ProveedorService {
     return this.http.post<Proveedor[]>(`${this.url}/api/Proveedor`, proveedor);
   }
 
+  aumentarPorcentajeProveedor(proveedorAumento: ProveedorAumento): Observable<Proveedor[]>{
+    if(!proveedorAumento.idProveedor) throw Error('El id del proveedor es requerido');
+    return this.http.post<Proveedor[]>(`${this.url}/AumentarPorcentaje`, proveedorAumento);
+  }
+
   updateProveedor(proveedor: Proveedor): Observable<Proveedor[]>{
     if(!proveedor.idProveedor) throw Error('El id del proveedor es requerido');
     return this.http.put<Proveedor[]>(`${this.url}/api/Proveedor`, proveedor);
@@ -30,5 +35,18 @@ export class ProveedorService {
 
   deleteProveedor(id: number): Observable<Proveedor[]>{
     return this.http.delete<Proveedor[]>(`${this.url}/api/Proveedor/${id}`);
+  }
+
+  dowloadPdfPrecioLista(idProveedor: number): void {
+    this.http.get(`${this.url}/api/Proveedor/DownloadPrecioLista?idProveedor=${idProveedor}`, { responseType: 'blob' }).subscribe((blob: Blob) => {
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString('es-AR').replace(/\//g, '-');
+      const link = document.createElement('a');
+      const url = window.URL.createObjectURL(blob);
+      link.href = url;
+      link.download = `precio-lista-${formattedDate}.pdf`;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    });
   }
 }

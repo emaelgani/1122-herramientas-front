@@ -13,7 +13,14 @@ import { DialogPagoComponent } from './components/dialog-pago/dialog-pago.compon
 
 
 @NgModule({
-  declarations: [ClientePageComponent, LayoutClientePageComponent, DialogClienteComponent, DialogNotaComponent, DialogVentaComponent, DialogPagoComponent],
+  declarations: [
+    ClientePageComponent,
+    LayoutClientePageComponent,
+    DialogClienteComponent,
+    DialogNotaComponent,
+    DialogVentaComponent,
+    DialogPagoComponent
+    ],
   imports: [
     CommonModule,
     MaterialModule,

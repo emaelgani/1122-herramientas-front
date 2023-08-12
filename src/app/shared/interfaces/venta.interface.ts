@@ -44,3 +44,7 @@ export interface ProductoMasVendidoPorCliente {
   cantidadProductos: number;
 }
 
+export interface CobranzaYVenta{
+  totalCobranzas: number;
+  totalVentas: number;
+}

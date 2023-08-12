@@ -1,20 +1,20 @@
 <h1 mat-dialog-title>
   Proveedor
 </h1>
-<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()" >
   <div mat-dialog-content class="content">
 
     <div class="row">
 
-      <mat-form-field >
+      <mat-form-field>
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
         <mat-error>El nombre es obligatorio</mat-error>
       </mat-form-field>
 
-      <mat-form-field >
+      <mat-form-field>
         <mat-label>Teléfono</mat-label>
-        <input matInput formControlName="telefono">
+        <input matInput formControlName="telefono" >
         <mat-error>El teléfono es obligatorio</mat-error>
       </mat-form-field>
 
@@ -30,10 +30,14 @@
 
     </div>
 
+    <div class="row">
+      <mat-checkbox class="example-margin" formControlName="sumaGastoMensual">Sumar a gasto mensual</mat-checkbox>
+    </div>
+
   </div>
 
   <div mat-dialog-actions class="action">
     <button mat-raised-button mat-dialog-close>Cancelar</button>
-    <button mat-raised-button color="primary" type="submit">Actualizar</button>
+    <button mat-raised-button color="primary" type="submit">{{ data ? 'Actualizar' : 'Guardar'}}</button>
   </div>
 </form>

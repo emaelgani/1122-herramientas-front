@@ -11,6 +11,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { DialogNotaComponent } from '../../components/dialog-nota/dialog-nota.component';
 import { DialogVentaComponent } from '../../components/dialog-venta/dialog-venta.component';
 import { DialogPagoComponent } from '../../components/dialog-pago/dialog-pago.component';
+import { FinanzasService } from 'src/app/finanzas/services/finanzas.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class ClientePageComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   private clienteService = inject(ClienteService);
+  private finanzasService = inject(FinanzasService);
   private _dialog = inject(MatDialog);
   private _snackBar = inject(MatSnackBar);
 
@@ -34,7 +36,9 @@ export class ClientePageComponent {
     this.getClientees();
   }
 
-
+  descargarPdfGuiaSalida(){
+    this.finanzasService.dowloadPdfSalida();
+  }
 
   getClientees() {
     this.clienteService.getClientes().subscribe({

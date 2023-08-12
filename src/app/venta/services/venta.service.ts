@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductoMasVendidoPorCliente, Venta, VentaCompleta, VentaPorMes, VentaProducto, VentasProductos } from 'src/app/shared/interfaces/venta.interface';
+import { CobranzaYVenta, ProductoMasVendidoPorCliente, Venta, VentaCompleta, VentaPorMes, VentaProducto, VentasProductos } from 'src/app/shared/interfaces/venta.interface';
 import { environments } from 'src/environments/environments';
 
 @Injectable({
@@ -36,13 +36,16 @@ export class VentaService {
     return this.http.get<VentasProductos[]>(`${this.url}/ProductosPorVentas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
   }
 
-  getCuatroProductosMasVendidosPorCliente(fechaInicio: string, fechaFin: string): Observable<ProductoMasVendidoPorCliente[]> {
-    return this.http.get<ProductoMasVendidoPorCliente[]>(`${this.url}/CuatroProductosMasVendidosPorCliente?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
+  getQuinceProductosMasVendidosPorCliente(fechaInicio: string, fechaFin: string): Observable<ProductoMasVendidoPorCliente[]> {
+    return this.http.get<ProductoMasVendidoPorCliente[]>(`${this.url}/QuinceProductosMasVendidosPorCliente?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
   }
 
   getProductosPorVenta(idVenta: number): Observable<VentaProducto[]>{
     return this.http.get<VentaProducto[]>(`${this.url}/api/Venta/${idVenta}/productos`);
   }
 
+  getCobranzasYVentas(fechaInicio: string, fechaFin: string): Observable<CobranzaYVenta>{
+    return this.http.get<CobranzaYVenta>(`${this.url}/CobranzasYVentas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
+  }
 
 }

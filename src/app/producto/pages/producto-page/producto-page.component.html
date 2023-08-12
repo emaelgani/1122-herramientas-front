@@ -2,7 +2,7 @@
   <div class="filter-container">
     <mat-form-field>
       <mat-label>Filtro</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Alicate..." #input>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Alicate..." #input autocomplete="off">
     </mat-form-field>
     <button mat-mini-fab color="primary" matTooltip="Agregar producto nuevo" (click)="openNewDialogProducto()">
       <mat-icon>add</mat-icon>
@@ -43,17 +43,17 @@
       </ng-container>
 
       <ng-container matColumnDef="precioLista">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Lista </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Lista </th>
         <td mat-cell *matCellDef="let row"> {{row.precioLista | currency: 'ARS': 'symbol'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="precioFinanciado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Financiado </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Financiado </th>
         <td mat-cell *matCellDef="let row"> {{row.precioFinanciado | currency: 'ARS': 'symbol' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="precioContado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Contado </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contado </th>
         <td mat-cell *matCellDef="let row"> {{row.precioContado | currency: 'ARS': 'symbol' }} </td>
       </ng-container>
 
@@ -62,9 +62,17 @@
         <td mat-cell *matCellDef="let row"> {{row.descripcion | lowercase }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="cantidadVentas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ventas </th>
+        <td mat-cell *matCellDef="let row"> {{row.cantidadVentas | number }}</td>
+      </ng-container>
+
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef > Action </th>
         <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="accent" matTooltip="Clientes que compraron el producto" (click)="opendDialogClientesMasVentas(row.idProducto)">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
           <button mat-icon-button color="primary" matTooltip="Editar producto" (click)="openEditDialogProducto(row)">
             <mat-icon>edit</mat-icon>
           </button>

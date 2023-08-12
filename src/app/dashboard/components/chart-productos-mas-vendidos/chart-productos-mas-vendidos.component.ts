@@ -40,8 +40,8 @@ export class ChartProductosMasVendidosComponent implements OnInit {
   createChart(): any {
 
     this.data = {
-        labels: [],
-        datasets: []
+      labels: [],
+      datasets: []
     };
 
 
@@ -55,9 +55,10 @@ export class ChartProductosMasVendidosComponent implements OnInit {
         },
         legend: {
           labels: {
-            color: 'white'
-          }
-        }
+            color: 'white',
+          },
+          display: false
+        },
       },
       scales: {
         x: {
@@ -87,7 +88,7 @@ export class ChartProductosMasVendidosComponent implements OnInit {
 
   getCuatroProductosMasVendidosPorCliente(fechaInicio: string, fechaFin: string) {
 
-    this.ventaService.getCuatroProductosMasVendidosPorCliente(fechaInicio, fechaFin)
+    this.ventaService.getQuinceProductosMasVendidosPorCliente(fechaInicio, fechaFin)
 
       .subscribe({
         next: (res: ProductoMasVendidoPorCliente[]) => {
@@ -114,7 +115,7 @@ export class ChartProductosMasVendidosComponent implements OnInit {
 
     // Crear un datasetItem por cada cliente
     clientesUnicos.forEach((cliente, index) => {
-      const data: number[] = [0,0,0,0];
+      const data: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       const productosCliente = array.filter(
         (productoCliente) => productoCliente.nombreCliente === cliente
       );
@@ -152,7 +153,7 @@ export class ChartProductosMasVendidosComponent implements OnInit {
     const formattedEndDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
     this.endDate = formattedEndDate!;
 
-    if(this.startDate != null && this.endDate != null){
+    if (this.startDate != null && this.endDate != null) {
       this.getCuatroProductosMasVendidosPorCliente(this.startDate, this.endDate);
     }
   }

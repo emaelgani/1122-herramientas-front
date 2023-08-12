@@ -1,8 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { PagoService } from 'src/app/pago/services/pago.service';
-import { PagoPorMes, PagoYVentaPorMes } from 'src/app/shared/interfaces/pago.interface';
-import { VentaPorMes } from 'src/app/shared/interfaces/venta.interface';
-import { VentaService } from 'src/app/venta/services/venta.service';
+import { PagoYVentaPorMes } from 'src/app/shared/interfaces/pago.interface';
 
 @Component({
   selector: 'app-chart-line-ingreso',
