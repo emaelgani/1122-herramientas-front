@@ -25,13 +25,13 @@
     <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
       <ng-container matColumnDef="item">
         <th mat-header-cell *matHeaderCellDef> Item </th>
-        <td mat-cell *matCellDef="let transaction"> {{transaction.item }} </td>
+        <td mat-cell *matCellDef="let transaction"> {{transaction.item }}  </td>
         <td mat-footer-cell *matFooterCellDef> Total </td>
       </ng-container>
 
       <ng-container matColumnDef="cost">
         <th mat-header-cell *matHeaderCellDef> Cost </th>
-        <td mat-cell *matCellDef="let transaction"> {{transaction.cost | currency: 'ARS': 'symbol'}} </td>
+        <td mat-cell *matCellDef="let transaction"> {{ transaction.item == 'Compromisos no abonados' ?  ('-'+ transaction.cost | currency: 'ARS': 'symbol'): (transaction.cost | currency: 'ARS': 'symbol')}} </td>
         <td mat-footer-cell *matFooterCellDef> {{getTotalCost(transactions) | currency: 'ARS': 'symbol'}} </td>
       </ng-container>
 
@@ -51,7 +51,7 @@
 
       <ng-container matColumnDef="cost">
         <th mat-header-cell *matHeaderCellDef> Cost </th>
-        <td mat-cell *matCellDef="let transaction"> {{transaction.cost | currency: 'ARS': 'symbol'}} </td>
+        <td mat-cell *matCellDef="let transaction"> {{ transaction.item == 'Compromisos no abonados' ?  ('-'+ transaction.cost | currency: 'ARS': 'symbol'): (transaction.cost | currency: 'ARS': 'symbol')}} </td>
         <td mat-footer-cell *matFooterCellDef> {{getTotalCost(transactions2) | currency: 'ARS': 'symbol'}} </td>
       </ng-container>
 

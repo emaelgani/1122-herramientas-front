@@ -5,7 +5,6 @@ import { ProductoService } from 'src/app/producto/services/producto.service';
 import { PagoService } from '../../../pago/services/pago.service';
 import { forkJoin } from 'rxjs';
 import { CompromisoService } from 'src/app/calendar/services/compromiso.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { VentaService } from 'src/app/venta/services/venta.service';
 import { CobranzaYVenta } from 'src/app/shared/interfaces/venta.interface';
 
@@ -25,12 +24,10 @@ interface Transaction {
 export class FinanzasPageComponent implements OnInit {
 
   private ventaService = inject(VentaService);
-  private compromisoService = inject(CompromisoService);
   private productoService = inject(ProductoService);
   private clienteService = inject(ClienteService);
   private pagoService = inject(PagoService);
   private compromisosService = inject(CompromisoService);
-  private fb = inject(FormBuilder);
   private datePipe = inject(DatePipe);
   private startDate!: string;
   private endDate!: string;
@@ -39,6 +36,7 @@ export class FinanzasPageComponent implements OnInit {
   public cobranzas: string = '';
   public ventas: string = '';
   public gastos: string = '';
+  public montoCompromisoNoPagado: string = '';
 
   displayedColumns: string[] = ['item', 'cost'];
 
@@ -46,12 +44,14 @@ export class FinanzasPageComponent implements OnInit {
     { item: 'Valor Stock Lista', cost: 0 },
     { item: 'Saldo', cost: 0 },
     { item: 'Liquidez', cost: 0 },
+    { item: 'Compromisos no abonados', cost: 0 },
   ];
 
   transactions2: Transaction[] = [
     { item: 'Valor Stock Financiado', cost: 0 },
     { item: 'Saldo', cost: 0 },
     { item: 'Liquidez', cost: 0 },
+    { item: 'Compromisos no abonados', cost: 0 },
   ]
 
 
@@ -72,16 +72,19 @@ export class FinanzasPageComponent implements OnInit {
       liquidezEfectivo: this.getLiquidezEfectivo(),
       liquidezDigital: this.getLiquidezDigital(),
       totalMontoCompromisosEfectivo: this.getMontoCompromisoEfectivo(),
-      totalMontoCompromisosDigital: this.getMontoCompromisoDigital()
-    }).subscribe(({ stockLista, stockFinanciado,  deuda, liquidezEfectivo, liquidezDigital, totalMontoCompromisosDigital, totalMontoCompromisosEfectivo }) => {
+      totalMontoCompromisosDigital: this.getMontoCompromisoDigital(),
+      totalCompromisosNoPagados: this.getCompromisoMontoNoAbonado()
+    }).subscribe(({ stockLista, stockFinanciado,  deuda, liquidezEfectivo, liquidezDigital, totalMontoCompromisosDigital, totalMontoCompromisosEfectivo, totalCompromisosNoPagados }) => {
 
       this.transactions[0].cost = stockLista;
       this.transactions[1].cost = deuda;
       this.transactions[2].cost = liquidezEfectivo + liquidezDigital - totalMontoCompromisosDigital - totalMontoCompromisosEfectivo;
+      this.transactions[3].cost = totalCompromisosNoPagados;
 
       this.transactions2[0].cost = stockFinanciado;
       this.transactions2[1].cost = deuda;
       this.transactions2[2].cost = liquidezEfectivo + liquidezDigital - totalMontoCompromisosDigital - totalMontoCompromisosEfectivo;
+      this.transactions2[3].cost = totalCompromisosNoPagados;
 
       this.transactions3[0].cost = liquidezDigital - totalMontoCompromisosDigital;
       this.transactions3[1].cost = liquidezEfectivo - totalMontoCompromisosEfectivo;
@@ -117,8 +120,8 @@ export class FinanzasPageComponent implements OnInit {
     return this.productoService.getTotalValorStockFinanciado();
   }
 
-  getTotalCostoStockContado() {
-    return this.productoService.getTotalValorStockContado();
+  getCompromisoMontoNoAbonado(){
+    return this.compromisosService.MontoTotalCompromisosNoPagados();
   }
 
   getCobranzasYVentas(fechaInicio: string, fechaFin: string) {
@@ -133,8 +136,11 @@ export class FinanzasPageComponent implements OnInit {
       })
   }
 
+
+
+
   getGastos(fechaInicio: string, fechaFin: string){
-    this.compromisoService.getGastos(fechaInicio, fechaFin)
+    this.compromisosService.getGastos(fechaInicio, fechaFin)
 
       .subscribe({
         next: (res: number) => {
@@ -143,10 +149,17 @@ export class FinanzasPageComponent implements OnInit {
       })
   }
 
-  getTotalCost(transition: Transaction[]) {
-    return transition
-      .map(t => t.cost)
-      .reduce((acc, value) => acc + value, 0);
+  getTotalCost(transactions: Transaction[]): number {
+    return transactions.reduce((acc, transaction) => {
+      // Verificar si el item es igual a 'Compromisos no abonados'
+      if (transaction.item === 'Compromisos no abonados') {
+        // Restar el costo cuando el item es igual a 'Compromisos no abonados'
+        return acc - transaction.cost;
+      } else {
+        // Sumar el costo en otros casos
+        return acc + transaction.cost;
+      }
+    }, 0);
   }
 
   onStartDateChange(event: any) {

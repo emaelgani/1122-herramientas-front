@@ -31,26 +31,9 @@
           <mat-divider class="mb-9"></mat-divider>
 
           <div class="row">
-
-
-
-              <!--<mat-label>Producto</mat-label>
-                   <mat-select formControlName="idProducto" (selectionChange)="onLabelSelected($event, i)">
-                    <mat-option>-- None --</mat-option>
-                    <mat-optgroup *ngFor="let producto of productos" [label]="producto.name"
-                      [disabled]="producto.disabled">
-                      <mat-option *ngFor="let producto of producto.productos" [value]="producto.idProducto">
-                        {{producto.name}}
-                      </mat-option>
-                    </mat-optgroup>
-                  </mat-select>
-                  <mat-error>El producto es obligatorio</mat-error>-->
-
-
-
               <mat-form-field class="full-width">
                 <mat-label>Producto</mat-label>
-                <input matInput aria-label="Productos" formControlName="stateCtrl" [matAutocomplete]="auto" >
+                <input matInput aria-label="Productos" [formControl]="stateCtrl" [matAutocomplete]="auto" >
                 <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onLabelSelected($event, i)" >
                   <mat-option *ngFor="let producto of filteredProductos | async" [value]="producto.nombre">
                     <span>{{producto.nombre}}</span> |
@@ -60,11 +43,6 @@
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
-
-
-
-
-
           </div>
 
           <div class="row">

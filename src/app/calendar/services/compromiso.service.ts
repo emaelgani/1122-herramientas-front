@@ -28,8 +28,8 @@ export class CompromisoService {
     return this.http.get<Compromiso>(`${this.url}/api/Compromiso/${id}`);
   }
 
-  getTotalMontoCompromisos(): Observable<number>{
-    return this.http.get<number>(`${this.url}/api/Compromiso/MontoTotal`);
+  MontoTotalCompromisosNoPagados(): Observable<number>{
+    return this.http.get<number>(`${this.url}/api/Compromiso/MontoTotalCompromisosNoPagados`);
   }
 
   getTotalMontoCompromisosEfectivo(): Observable<number>{

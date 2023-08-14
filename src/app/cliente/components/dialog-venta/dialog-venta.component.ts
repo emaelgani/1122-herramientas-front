@@ -5,7 +5,6 @@ import { Observable, map, startWith } from 'rxjs';
 import { ProductoService } from 'src/app/producto/services/producto.service';
 import { ProveedorService } from 'src/app/proveedor/services/proveedor.service';
 import { Producto } from 'src/app/shared/interfaces/producto.interface';
-import { Proveedor } from 'src/app/shared/interfaces/proveedor.interface';
 import { VentaCompleta } from 'src/app/shared/interfaces/venta.interface';
 import { Venta, VentaProducto } from '../../../shared/interfaces/venta.interface';
 import { VentaService } from 'src/app/venta/services/venta.service';
@@ -34,7 +33,6 @@ export class DialogVentaComponent {
   public dialogRef = inject(MatDialogRef<DialogClienteComponent>);
   private _snackBar = inject(MatSnackBar);
   private fb = inject(FormBuilder);
-  private proveedorService = inject(ProveedorService);
   private productoService = inject(ProductoService);
   private ventaService = inject(VentaService);
   private currencyPipe = inject(CurrencyPipe);
