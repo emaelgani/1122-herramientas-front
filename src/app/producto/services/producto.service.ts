@@ -50,6 +50,17 @@ export class ProductoService {
     return this.http.get<Producto>(`${this.url}/api/Producto/${id}`);
   }
 
-
+  dowloadPdfProductos(): void {
+    this.http.get(`${this.url}/api/Producto/DownloadListaPrecios`, { responseType: 'blob' }).subscribe((blob: Blob) => {
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString('es-AR').replace(/\//g, '-');
+      const link = document.createElement('a');
+      const url = window.URL.createObjectURL(blob);
+      link.href = url;
+      link.download = `salida-precios-${formattedDate}.pdf`;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
 
 }
