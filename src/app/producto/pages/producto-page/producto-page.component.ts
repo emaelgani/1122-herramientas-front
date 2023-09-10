@@ -13,6 +13,7 @@ import { Producto } from 'src/app/shared/interfaces/producto.interface';
 import { map } from 'rxjs';
 import { DialogProductoComponent } from '../../components/dialog-producto/dialog-producto.component';
 import { DialogClienteVentasComponent } from '../../components/dialog-cliente-ventas/dialog-cliente-ventas.component';
+import { DialogDescriptionProductoComponent } from '../../components/dialog-description-producto/dialog-description-producto.component';
 
 @Component({
   selector: 'app-producto-page',
@@ -24,7 +25,7 @@ export class ProductoPageComponent {
 
 
 
-    displayedColumns: string[] = ['idProducto', 'nombreProveedor', 'nombre', 'marca', 'codigo',  'stock', 'precioLista' , 'precioFinanciado', 'precioContado', 'descripcion', 'cantidadVentas','action'];
+    displayedColumns: string[] = ['idProducto', 'nombreProveedor', 'nombre', 'marca', 'codigo',  'stock', 'precioLista' , 'precioFinanciado', 'precioContado', 'actualizado', 'cantidadVentas','action'];
     dataSource!: MatTableDataSource<Producto>;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -103,6 +104,11 @@ export class ProductoPageComponent {
           });
         }
       });
+    }
+
+
+    openDialogDescription(descripcion: string){
+     this._dialog.open(DialogDescriptionProductoComponent, {data: descripcion});
     }
 
     opendDialogClientesMasVentas(idProducto: number){

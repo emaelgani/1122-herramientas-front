@@ -99,26 +99,29 @@ export class ChartLineProductoVendidoPorMesComponent implements OnInit {
     this.ventaService.getVentasProductoPorMes(idProducto)
       .subscribe({
         next: (res: VentaPorMes[]) => {
-          this.createChart();
-          this.setLabels();
+          if(res.length > 0){
 
-          //Año actual
-          const currentYear = new Date().getFullYear();
+            this.createChart();
+            this.setLabels();
 
-          let dataTotal: number[] = [];
+            //Año actual
+            const currentYear = new Date().getFullYear();
 
-          for (let index = 0; index < res.length; index++) {
+            let dataTotal: number[] = [];
 
-            let indice: number = res.at(index)!.mes;
-            dataTotal[indice - 1] = res.at(index)!.totalVentas;
+            for (let index = 0; index < res.length; index++) {
+
+              let indice: number = res.at(index)!.mes;
+              dataTotal[indice - 1] = res.at(index)!.totalVentas;
+            }
+
+            this.data.datasets[0].label = `Cantidad de ${res[0].nombreProducto} vendidos por mes del año ${currentYear}`;
+            this.data.datasets[0].data = dataTotal;
+            this.data.datasets[0].fill = false;
+            this.data.datasets[0].borderColor = '#5565FA';
+            this.data.datasets[0].backgroundColor = '#5569FA6B';
+            this.data.datasets[0].tesion = 0;
           }
-
-          this.data.datasets[0].label = `Cantidad de ${res[0].nombreProducto} vendidos por mes del año ${currentYear}`;
-          this.data.datasets[0].data = dataTotal;
-          this.data.datasets[0].fill = false;
-          this.data.datasets[0].borderColor = '#5565FA';
-          this.data.datasets[0].backgroundColor = '#5569FA6B';
-          this.data.datasets[0].tesion = 0;
 
         },
         error: (err: any) => {

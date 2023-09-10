@@ -145,12 +145,12 @@ export class ChartProductosMasVendidosComponent implements OnInit {
 
 
   onStartDateChange(event: any) {
-    const formattedEndDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
+    const formattedEndDate = this.datePipe.transform(event.value, 'yyyy/MM/dd');
     this.startDate = formattedEndDate!;
   }
 
   onEndDateChange(event: any) {
-    const formattedEndDate = this.datePipe.transform(event.value, 'dd/MM/yyyy');
+    const formattedEndDate = this.datePipe.transform(event.value, 'yyyy/MM/dd');
     this.endDate = formattedEndDate!;
 
     if (this.startDate != null && this.endDate != null) {

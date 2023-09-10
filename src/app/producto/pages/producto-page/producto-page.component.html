@@ -60,9 +60,10 @@
         <td mat-cell *matCellDef="let row"> {{row.precioContado | currency: 'ARS': 'symbol' }} </td>
       </ng-container>
 
-      <ng-container matColumnDef="descripcion">
-        <th mat-header-cell *matHeaderCellDef> Descripción </th>
-        <td mat-cell *matCellDef="let row"> {{row.descripcion | lowercase }}</td>
+
+      <ng-container matColumnDef="actualizado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actualizado </th>
+        <td mat-cell *matCellDef="let row"> {{ row.actualizado | date: 'dd/MM/yyyy' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="cantidadVentas">
@@ -73,6 +74,9 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef > Action </th>
         <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="accent" matTooltip="Descripción" (click)="openDialogDescription(row.descripcion)">
+            <mat-icon>description</mat-icon>
+          </button>
           <button mat-icon-button color="accent" matTooltip="Clientes que compraron el producto" (click)="opendDialogClientesMasVentas(row.idProducto)">
             <mat-icon>add_shopping_cart</mat-icon>
           </button>

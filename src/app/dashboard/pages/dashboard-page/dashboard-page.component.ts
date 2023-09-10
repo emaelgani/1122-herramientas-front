@@ -22,8 +22,8 @@ export class DashboardPageComponent {
           { title: 'Clientes con más deuda acumulada', cols: 1, rows: 1 },
           { title: 'Balance entre pagos y ventas', cols: 1, rows: 1 },
           { title: 'Producto vendido por mes', cols: 2, rows: 1 },
-          { title: 'Cantidad ventas y productos por cliente', cols: 1, rows: 1 },
-          { title: 'Productos más comprados por clientes', cols: 1, rows: 1 },
+          // { title: 'Cantidad ventas y productos por cliente', cols: 1, rows: 1 },
+          { title: 'Productos más comprados por clientes', cols: 2, rows: 1 },
         ];
       }
 
@@ -31,8 +31,8 @@ export class DashboardPageComponent {
         { title: 'Clientes con más deuda acumulada', cols: 1, rows: 1 },
         { title: 'Balance entre pagos y ventas', cols: 1, rows: 1 },
         { title: 'Producto vendido por mes', cols: 2, rows: 1 },
-        { title: 'Cantidad ventas y productos por cliente', cols: 1, rows: 1 },
-        { title: 'Productos más comprados por clientes', cols: 1, rows: 1 },
+        // { title: 'Cantidad ventas y productos por cliente', cols: 1, rows: 1 },
+        { title: 'Productos más comprados por clientes', cols: 2, rows: 1 },
       ];
     })
   );

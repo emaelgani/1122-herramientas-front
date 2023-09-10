@@ -14,4 +14,5 @@ export interface Producto  {
   nombreProveedor?: string;
   cantidadVentas?: number,
   proveedor?: Proveedor;
+  actualizado?: string;
 }
