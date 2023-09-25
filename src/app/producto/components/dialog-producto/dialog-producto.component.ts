@@ -30,13 +30,13 @@ export class DialogProductoComponent {
   public myForm: FormGroup = this.fb.group({
     idProveedor: ['', [Validators.required]],
     nombre: ['', [Validators.required]],
-    codigo: ['', [Validators.required]],
-    marca: ['', [Validators.required]],
+    codigo: ['', ],
+    marca: ['', ],
     stock: ['', [Validators.required, Validators.min(0)]],
     precioLista: ['', [Validators.required, Validators.min(0)]],
     precioContado: ['', [Validators.required, Validators.min(0)]],
     precioFinanciado: ['', [Validators.required, Validators.min(0)]],
-    descripcion: ['', [Validators.required]],
+    descripcion: ['', ],
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Producto) {

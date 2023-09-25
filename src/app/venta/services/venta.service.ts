@@ -48,4 +48,8 @@ export class VentaService {
     return this.http.get<CobranzaYVenta>(`${this.url}/CobranzasYVentas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
   }
 
+  deleteVenta(idVenta: number): Observable<any> {
+    return this.http.delete(`${this.url}/api/Venta?id=${idVenta}`);
+  }
+
 }

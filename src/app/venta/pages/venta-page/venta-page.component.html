@@ -35,6 +35,9 @@
           <button mat-icon-button color="accent" matTooltip="Ver productos vendidos" (click)="openDialogProductosVendidos(row.idVenta)" >
             <mat-icon>list_alt</mat-icon>
           </button>
+          <button mat-icon-button color="warn" matTooltip="Borrar venta" (click)="deleteVenta(row.idVenta)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </ng-container>
 

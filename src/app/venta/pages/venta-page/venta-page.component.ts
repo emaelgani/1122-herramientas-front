@@ -54,8 +54,17 @@ export class VentaPageComponent {
         console.error(err);
       }
     });
+  }
 
-
+  deleteVenta(idVenta: number){
+    this.ventaService.deleteVenta(idVenta).subscribe({
+      next: () => {
+          this.getVentas();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 
   applyFilter(event: Event) {

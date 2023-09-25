@@ -1,4 +1,7 @@
 <div mat-dialog-content class="content">
+  <h1 mat-dialog-title>
+    Venta - {{data.nombre | uppercase}}
+  </h1>
   <form [formGroup]="myForm" autocomplete="off">
     <ng-template matStepLabel>Datos de la venta</ng-template>
 

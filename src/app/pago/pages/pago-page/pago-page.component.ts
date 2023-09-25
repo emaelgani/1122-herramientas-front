@@ -13,7 +13,7 @@ import { Pago } from 'src/app/shared/interfaces/pago.interface';
 export class PagoPageComponent {
 
 
-  displayedColumns: string[] = ['idPago', 'cliente', 'fecha', 'metodoPago', 'totalPago'];
+  displayedColumns: string[] = ['idPago', 'cliente', 'fecha', 'metodoPago', 'totalPago', 'action'];
   dataSource!: MatTableDataSource<Pago>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -41,6 +41,17 @@ export class PagoPageComponent {
     })
   }
 
+
+  deletePago(idPago: number){
+    this.pagoService.deletePago(idPago).subscribe({
+      next: () => {
+          this.getPagos();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

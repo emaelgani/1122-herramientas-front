@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>
-  Pago
+  Pago - {{data.nombre | uppercase}}
 </h1>
 <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <div mat-dialog-content class="content">

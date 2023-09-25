@@ -38,4 +38,8 @@ export class PagoService {
   getLiquidezDigital(): Observable<number>{
     return this.http.get<number>(`${this.url}/api/Pago/LiquidezDigital`);
   }
+
+  deletePago(idPago: number): Observable<any> {
+    return this.http.delete(`${this.url}/api/Pago?id=${idPago}`);
+  }
 }
